@@ -1,0 +1,49 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Django local database
+db.sqlite3
+db.sqlite3-journal
+
+# Uploaded local media
+media/
+
+# Collected static files
+staticfiles/
+
+# Test and coverage files
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Logs
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+build/
+dist/

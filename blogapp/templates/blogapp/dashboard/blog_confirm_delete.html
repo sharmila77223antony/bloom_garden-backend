@@ -1,0 +1,31 @@
+
+{% extends "blogapp/dashboard/base.html" %}
+
+{% block title %}Delete Blog | BLOOM{% endblock %}
+
+{% block content %}
+<div style="max-width:540px;margin:50px auto;">
+    <section class="glass panel" style="text-align:center;">
+        <div style="font-size:48px;color:#fda4af;text-shadow:0 0 22px #fb718555;">✦</div>
+        <div class="eyebrow">One last confirmation</div>
+        <h1 style="font-size:31px;">Delete this story?</h1>
+        <p class="muted">
+            This will permanently delete
+            <strong style="color:#fff;">{{ blog.title }}</strong>
+            from your blog database.
+        </p>
+
+        {% if blog.image %}
+        <img src="{{ blog.image.url }}" alt="{{ blog.title }}"
+             style="width:180px;height:130px;object-fit:cover;border-radius:14px;margin:12px auto 22px;">
+        {% endif %}
+
+        <form method="post" action="{% url 'master-blog-delete' blog.id %}"
+              style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, delete blog</button>
+            <a href="{% url 'master-blog-list' %}" class="btn">Keep blog</a>
+        </form>
+    </section>
+</div>
+{% endblock %}

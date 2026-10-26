@@ -1,0 +1,64 @@
+
+{% extends "blogapp/dashboard/base.html" %}
+
+{% block title %}{{ page_title }} | BLOOM{% endblock %}
+
+{% block content %}
+<div style="max-width:850px;margin:auto;">
+    <a href="{% url 'master-blog-list' %}" class="muted">← Back to dashboard</a>
+
+    <div style="margin:22px 0;">
+        <div class="eyebrow">BLOOM content studio</div>
+        <h1 style="font-size:clamp(30px,5vw,40px);margin:10px 0;">{{ page_title }}</h1>
+        <p class="muted">Craft your story and give it a beautiful cover.</p>
+    </div>
+
+    <section class="glass panel">
+        <form method="post" enctype="multipart/form-data"
+              action="{% if blog %}{% url 'master-blog-edit' blog.id %}{% else %}{% url 'master-blog-create' %}{% endif %}">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="form-errors">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="field">
+                <label for="{{ form.title.id_for_label }}">Blog title</label>
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+
+            <div class="field">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="field">
+                <label for="{{ form.image.id_for_label }}">Cover image</label>
+                {{ form.image }}
+                {{ form.image.errors }}
+
+                {% if blog and blog.image %}
+                <div style="margin-top:16px;">
+                    <p class="muted">Current Cloudinary image</p>
+                    <img src="{{ blog.image.url }}" alt="{{ blog.title }}"
+                         style="width:min(100%,300px);max-height:220px;object-fit:cover;border-radius:15px;border:1px solid #c4a5fd55;">
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="field" style="display:flex;align-items:center;gap:11px;">
+                {{ form.is_published }}
+                <label for="{{ form.is_published.id_for_label }}">Publish this blog</label>
+                {{ form.is_published.errors }}
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;">
+                <button type="submit" class="btn btn-primary">Save blog ↗</button>
+                <a href="{% url 'master-blog-list' %}" class="btn">Cancel</a>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}

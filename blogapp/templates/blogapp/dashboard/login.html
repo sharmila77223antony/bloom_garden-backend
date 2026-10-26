@@ -1,0 +1,159 @@
+
+{% extends "blogapp/dashboard/base.html" %}
+
+{% block title %}Master Login · BLOOM{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-layout {
+        min-height: 72vh;
+        display: grid;
+        place-items: center;
+        padding: 30px 0 45px;
+    }
+
+    .login-card {
+        width: min(450px, 100%);
+        padding: 36px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(150deg, #1d1d19, #141412 75%);
+        border: 1px solid rgba(197,167,107,.23);
+        border-radius: 22px;
+        box-shadow: 0 30px 80px rgba(0,0,0,.32);
+        animation: fadeUp .7s ease both;
+    }
+
+    .login-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 12%;
+        width: 76%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #c5a76b, transparent);
+        opacity: .65;
+    }
+
+    .login-emblem {
+        width: 60px;
+        height: 60px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 28px;
+        border-radius: 18px;
+        background: #28251e;
+        border: 1px solid rgba(197,167,107,.28);
+        color: var(--gold-light);
+        font: italic 36px Georgia, serif;
+    }
+
+    .login-card h1 {
+        margin: 12px 0 9px;
+        font: 600 31px/1.2 "Manrope", sans-serif;
+        letter-spacing: -.045em;
+    }
+
+    .login-card h1 span {
+        color: var(--gold-light);
+        font-family: Georgia, serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    .login-copy {
+        margin-bottom: 28px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.8;
+    }
+
+    .login-card .field { margin-bottom: 19px; }
+
+    .login-submit {
+        width: 100%;
+        min-height: 48px;
+        margin-top: 5px;
+    }
+
+    .login-footnote {
+        margin: 20px 0 0;
+        text-align: center;
+        color: #777267;
+        font-size: 10px;
+    }
+
+    .login-error {
+        margin-bottom: 18px;
+        padding: 12px 14px;
+        color: var(--red);
+        border: 1px solid rgba(217,154,145,.25);
+        background: rgba(217,154,145,.06);
+        border-radius: 10px;
+        font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+        .login-card { padding: 25px 21px; }
+        .login-card h1 { font-size: 27px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="login-layout">
+    <div class="login-card">
+        <div class="login-emblem">b.</div>
+
+        <div class="eyebrow">Private access</div>
+        <h1>Welcome <span>back.</span></h1>
+        <p class="login-copy">
+            Sign in to your editorial workspace to manage stories,
+            images, and published content.
+        </p>
+
+        {% if error %}
+            <div class="login-error" role="alert">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" autocomplete="on">
+            {% csrf_token %}
+
+            <div class="field">
+                <label for="username">ADMIN USERNAME</label>
+                <input
+                    class="glass-input"
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+            </div>
+
+            <div class="field">
+                <label for="password">PASSWORD</label>
+                <input
+                    class="glass-input"
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button class="btn btn-primary login-submit" type="submit">
+                Enter workspace <span aria-hidden="true">↗</span>
+            </button>
+        </form>
+
+        <p class="login-footnote">
+            Restricted to authorized Django superusers.
+        </p>
+    </div>
+</section>
+{% endblock %}

@@ -16,7 +16,6 @@ env/
 ENV/
 
 # Django local database
-db.sqlite3
 db.sqlite3-journal
 
 # Uploaded local media
